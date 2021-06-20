@@ -1,0 +1,27 @@
+{
+    "name": "mtu/lockage",
+    "description": "Laravel package for pairing keys",
+    "type": "library",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Martynas Tumas",
+            "email": "martynas.tumas@softeta.com"
+        }
+    ],
+    "require": {
+        "php": "^7.4.15"
+    },
+    "autoload": {
+        "psr-4": {
+            "Mtu\\Lockage\\": "src/"
+        }
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Mtu\\Lockage\\LockageServiceProvider"
+            ]
+        }
+    }
+}
