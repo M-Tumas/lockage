@@ -23,5 +23,6 @@
                 "Mtu\\Lockage\\LockageServiceProvider"
             ]
         }
-    }
+    },
+    "minimum-stability": "dev"
 }
