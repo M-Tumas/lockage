@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Lockage\Lockage\Exceptions;
+namespace Mtu\Lockage\Exceptions;
 
 use Exception;
 

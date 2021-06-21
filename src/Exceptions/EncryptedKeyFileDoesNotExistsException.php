@@ -6,7 +6,7 @@ namespace Mtu\Lockage\Exceptions;
 
 use Exception;
 
-class CryptographyDecryptionException extends Exception
+class EncryptedKeyFileDoesNotExistsException extends Exception
 {
 
 }

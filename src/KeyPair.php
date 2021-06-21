@@ -2,22 +2,21 @@
 
 declare(strict_types=1);
 
-namespace Lockage\Lockage;
+namespace Mtu\Lockage;
 
+use JsonException;
+use Lockage\Lockage\Exceptions\CryptographyDecryptionException;
 use Lockage\Lockage\Exceptions\NumberTooBigException;
+use Mtu\Lockage\Exceptions\EncryptedKeyFileDoesNotExistsException;
+use SodiumException;
 
-/**
- * Class KeyPair
- * @package Lockage\Lockage
- */
 class KeyPair
 {
     private const MAX_INDEX = 9999;
     private const DEDUCTION = 10000;
 
-    private const DATA_PATH = '/Data/data-last.txt';
-
     private Cryptography $cryptography;
+    private string $dataFilePath;
     private array $data;
 
     /**
@@ -26,6 +25,7 @@ class KeyPair
      */
     public function __construct(Cryptography $cryptography)
     {
+        $this->dataFilePath = config('lockage.encrypted_file_path');
         $this->cryptography = $cryptography;
     }
 
@@ -36,8 +36,8 @@ class KeyPair
      * @return mixed
      * @throws Exceptions\CryptographyDecryptionException
      * @throws NumberTooBigException
-     * @throws \JsonException
-     * @throws \SodiumException
+     * @throws JsonException
+     * @throws SodiumException
      */
     public function getPair(int $randomCode, int $trailerCode, int $officeCode)
     {
@@ -80,12 +80,24 @@ class KeyPair
     }
 
     /**
-     * @throws Exceptions\CryptographyDecryptionException
-     * @throws \JsonException
-     * @throws \SodiumException
+     * @throws EncryptedKeyFileDoesNotExistsException
+     * @throws JsonException
+     * @throws CryptographyDecryptionException
+     * @throws SodiumException
      */
     private function loadData(): void
     {
-        $this->data = json_decode($this->cryptography->decrypt(file_get_contents(__DIR__ . self::DATA_PATH)), true, 512, JSON_THROW_ON_ERROR);
+        $this->validateDataFile();
+        $this->data = json_decode($this->cryptography->decrypt(file_get_contents($this->dataFilePath)), true, 512, JSON_THROW_ON_ERROR);
+    }
+
+    /**
+     * @throws EncryptedKeyFileDoesNotExistsException
+     */
+    private function validateDataFile(): void
+    {
+        if (!file_exists($this->dataFilePath)) {
+            throw new EncryptedKeyFileDoesNotExistsException('File does not exists');
+        }
     }
 }

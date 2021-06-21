@@ -2,15 +2,11 @@
 
 declare(strict_types=1);
 
-namespace Lockage\Lockage;
+namespace Mtu\Lockage;
 
 use Lockage\Lockage\Exceptions\CryptographyDecryptionException;
 use SodiumException;
 
-/**
- * Class Cryptography
- * @package Lockage\Lockage
- */
 class Cryptography
 {
     private const NONCE_LENGTH = 32;
@@ -19,7 +15,7 @@ class Cryptography
 
     public function __construct()
     {
-        $this->key = base64_decode(config('lockage.cryptography.key'));
+        $this->key = base64_decode(config('lockage.key'));
     }
 
     /**
