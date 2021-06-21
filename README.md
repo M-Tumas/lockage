@@ -2,6 +2,9 @@
 
 usage:
 
+Publish configs;
+Set Key and Data file path;
+
 DI KeyPair $keyPair;
 
 $int = 7558;
