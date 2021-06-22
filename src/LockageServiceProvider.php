@@ -15,6 +15,8 @@ class LockageServiceProvider extends ServiceProvider
 
     public function register()
     {
-
+		$this->app->singleton(KeyPair::class, function () {
+			return new KeyPair(new Cryptography());
+		});
     }
 }
