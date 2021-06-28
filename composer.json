@@ -10,7 +10,8 @@
         }
     ],
     "require": {
-        "php": "^7.4.15"
+        "php": "^7.4|^8.0",
+        "ext-sodium": "*"
     },
     "autoload": {
         "psr-4": {

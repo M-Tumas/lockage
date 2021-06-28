@@ -1,6 +1,6 @@
 <?php
 
 return [
-    'key' => env('LOCK_KEY', ''),
-    'encrypted_file_path' => env('LOCK_FILE_PATH', ''),
+    'key' => env('MTU_LOCK_KEY', ''),
+    'encrypted_file_path' => env('MTU_LOCK_FILE_PATH', ''),
 ];
